@@ -1,0 +1,116 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="Amazon UI Test">
+    <parameter name="listName" value="Virgosol Liste"></parameter>
+    <test name="Anasayfadaki Kontrollerin Gerçekleştirilmesi">
+        <parameter name="pageTitle" value="Amazon.com.tr:"></parameter>
+        <groups>
+            <run>
+                <include name="checkhomepage"/>
+                <include name="login"/>
+            </run>
+            <dependencies>
+                <group name="login" depends-on="checkhomepage" />
+            </dependencies>
+        </groups>
+        <classes>
+            <class name="HomePageTest"/>
+        </classes>
+    </test>
+    <test name="Login İşleminin Gerçekleştirilmesi">
+        <parameter name="email" value="rofaho1910@kuvasin.com"></parameter>
+        <parameter name="password" value="rofaho1910"></parameter>
+        <groups>
+            <run>
+                <exclude name="logout"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="LoginTest"/>
+        </classes>
+    </test>
+    <test name="Login Olunduğunun Kontrol Edilmesi">
+        <parameter name="userName" value="Furkan"></parameter>
+        <groups>
+            <run>
+                <include name="checklogin"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="HomePageTest"/>
+        </classes>
+    </test>
+    <test name="Liste Oluşturma İşleminin Gerçekleştirilmesi">
+        <groups>
+            <run>
+                <exclude name="deletefromlist"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="HomePageTest">
+                <methods>
+                    <include name="clickCreateListLink"/>
+                </methods>
+            </class>
+            <class name="ListPageTest"/>
+        </classes>
+    </test>
+    <test name="Ürün Arama İşleminin Gerçekleştirilmesi">
+        <parameter name="categoryOpt" value="Bilgisayarlar"></parameter>
+        <parameter name="product" value="msi"></parameter>
+        <parameter name="pageNo" value="2"></parameter>
+        <groups>
+            <run>
+                <include name="searchProduct"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="HomePageTest"/>
+            <class name="ProductListTest"/>
+        </classes>
+    </test>
+    <test name="Bir Ürün Seçilerek Listeye Eklenmesi">
+        <parameter name="productNo" value="2"></parameter>
+        <groups>
+            <run>
+                <include name="addproduct"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="ProductListTest"/>
+            <class name="ProductDetailTest"></class>
+        </classes>
+    </test>
+    <test name="Eklenen Ürünün Listeden Silinmesi">
+        <groups>
+            <run>
+                <include name="deletefromlist"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="ProductDetailTest"></class>
+            <class name="HomePageTest"></class>
+            <class name="ListPageTest"></class>
+        </classes>
+    </test>
+    <test name="LogOut İşleminin Gerçekleştirilmesi">
+        <groups>
+            <run>
+                <include name="logout"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="HomePageTest"></class>
+            <class name="LoginTest"></class>
+        </classes>
+    </test>
+    <test name="LogOut Olduğunun Kontrol Edilmesi">
+        <groups>
+            <run>
+                <include name="checklogout"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="HomePageTest"></class>
+        </classes>
+    </test>
+</suite>
